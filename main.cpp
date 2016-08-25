@@ -14,10 +14,7 @@ typedef std::vector<std::string> plugin_list;
 inline void add_load_flags_for_lib( plugin_list& list, std::vector<const char*>& pointer_flags )
 {
   for( auto& element : list ){
-    std::cout << " exec" << std::endl;
     pointer_flags.push_back(strdup((std::string("-fplugin=") + element).c_str()));
-    //pointer_flags.push_back(strdup(("-Xclang -load -Xclang "s + element).c_str()));
-    //pointer_flags.push_back(element.c_str());
   }
   
 }
@@ -25,22 +22,21 @@ inline void add_load_flags_for_lib( plugin_list& list, std::vector<const char*>&
 
 int main(int argc, char** argv) {
   CXIndex clang_index = clang_createIndex(0,0);
-  std::string filename = "main.cpp";
+  std::string filename = "test.cpp";
   std::vector<const char*> pointer_flags;
 
   plugin_list lib_list;
-  lib_list.push_back( "/home/incubus/dev/ClanPlugin/lib/ClanPlugin.so" );
+  lib_list.push_back( "/root/ClanPlugin/lib/ClanPlugin.so" );
   //lib_list.emplace_back( "/home/incubus/llvm_patch_test/build/lib/clangTidyPluginLM.so" ));
   
-  //add_load_flags_for_lib( lib_list, pointer_flags );
+  add_load_flags_for_lib( lib_list, pointer_flags );
 
-#if 0
+  pointer_flags.push_back("-std=c++11");
+  pointer_flags.push_back("-Weverything");
+
   for( auto& element : pointer_flags ){
       std::cout << element << std::endl;
   }
-#endif
-
-  pointer_flags.push_back("-std=c++11");
 
 #if 0
   pointer_flags.push_back("-Xclang");
@@ -69,8 +65,8 @@ int main(int argc, char** argv) {
   auto clang_translation_unit_error = clang_parseTranslationUnit2(
       clang_index, 
       strdup(filename.c_str()), 
-      nullptr,//&pointer_flags[0], 
-      0,//pointer_flags.size(),
+      &pointer_flags[0], 
+      pointer_flags.size(),
       nullptr, 
       0,
       clang_defaultEditingTranslationUnitOptions(),

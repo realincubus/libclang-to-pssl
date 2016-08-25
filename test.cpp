@@ -1,6 +1,8 @@
 
 int main(){
 
+  int a;
+
   double x[100];
   double y[100];
 
