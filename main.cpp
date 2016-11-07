@@ -33,30 +33,15 @@ int main(int argc, char** argv) {
 
   pointer_flags.push_back("-std=c++11");
   pointer_flags.push_back("-Weverything");
+  pointer_flags.push_back("-fmodules");
+  //pointer_flags.push_back("-fno-implicit-module-maps");
+  pointer_flags.push_back("-fmodules-cache-path=cache");
+
 
   for( auto& element : pointer_flags ){
       std::cout << element << std::endl;
   }
 
-#if 0
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-plugin-arg-clan");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-redirect-stdout");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-plugin-arg-clan");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("/dev/null");
-
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-plugin-arg-clan");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-redirect-stderr");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("-plugin-arg-clan");
-  pointer_flags.push_back("-Xclang");
-  pointer_flags.push_back("/dev/null");
-#endif
 
   std::cout << "starting to parse the tu" << std::endl;
   
