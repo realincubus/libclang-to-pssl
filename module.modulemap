@@ -1,0 +1,4 @@
+module myheader {
+  header "myheader.h"
+  export *
+}

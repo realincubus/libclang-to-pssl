@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
   std::vector<const char*> pointer_flags;
 
   plugin_list lib_list;
-  lib_list.push_back( "/root/ClanPlugin/lib/ClanPlugin.so" );
+  lib_list.push_back( "/root/CopyAndPasteDetector/lib/CopyAndPasteDetector.so" );
   //lib_list.emplace_back( "/home/incubus/llvm_patch_test/build/lib/clangTidyPluginLM.so" ));
   
   add_load_flags_for_lib( lib_list, pointer_flags );
@@ -34,6 +34,7 @@ int main(int argc, char** argv) {
   pointer_flags.push_back("-std=c++11");
   pointer_flags.push_back("-Weverything");
   pointer_flags.push_back("-fmodules");
+  pointer_flags.push_back("-fmodule-map-file=module.modulemap");
   //pointer_flags.push_back("-fno-implicit-module-maps");
   pointer_flags.push_back("-fmodules-cache-path=cache");
 
